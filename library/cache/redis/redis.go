@@ -14,6 +14,7 @@ type Pool struct {
 // Config client settings.
 type Config struct {
 	Addr         string
+	Password     string
 	MaxIdle      int
 	MaxActive    int
 	IdleTimeout  xtime.Duration
@@ -32,6 +33,7 @@ func NewPool(c *Config) (p *Pool) {
 		return redis.Dial(
 			"tcp",
 			c.Addr,
+			redis.DialPassword(c.Password),
 			redis.DialConnectTimeout(time.Duration(c.DialTimeout)),
 			redis.DialReadTimeout(time.Duration(c.ReadTimeout)),
 			redis.DialWriteTimeout(time.Duration(c.WriteTimeout)))

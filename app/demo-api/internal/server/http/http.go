@@ -51,21 +51,26 @@ func New(c *conf.Config, s *service.Service) (httpSrv *http.Server) {
 
 func route(e *gin.Engine) {
 	e.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	student := e.Group("/api/v1")
+	user := e.Group("/api/v1/user")
 	{
-		//获取学生列表
-		student.GET("/student/list", ListStudent)
-		// 添加学生
-		student.POST("/student/add", AddStudent)
-		// 修改学生
-		student.POST("/student/update", UpdateStudentName)
-		// 事务: 添加老师和学生
-		student.GET("/student/txAdd", TxAddTeacherAndStudent)
-		// Redis Key
-		student.GET("/student/getRedisKey", GetRedisKey)
-		// Redis Set
-		student.GET("/student/setRedisKey", SetRedisKey)
-		// Http client pool get
-		student.GET("student/http/searchKeyword", SearchKeyword)
+		//获取当前用户
+		user.GET("/current", CurrentUser)
+		//获取用户假期
+		user.GET("/leaves", CurrentUser)
+		//更新用户
+		user.PUT("/update", UpdateUser)
+	}
+
+	leaveProcess := e.Group("/api/v1/leave-process")
+	{
+
+		//获取用户列表
+		leaveProcess.GET("/last", LastLeaveProcess)
+		//获取用户列表
+		leaveProcess.GET("/list", ListLeaveProcess)
+		// 添加用户
+		leaveProcess.POST("/add", AddLeaveProcess)
+		// 添加用户
+		leaveProcess.POST("/detail", GetLeaveProcess)
 	}
 }

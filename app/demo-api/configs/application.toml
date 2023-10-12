@@ -5,7 +5,7 @@
     writeTimeout = "10s"
 
 [log]
-    dir = "/Users/zhangzhiguang/Documents/logs/go-web-demo/"
+    dir = "/tmp/logs/go-web-demo/"
     stdout = true
 
 [mysql]
@@ -21,7 +21,8 @@
         tranTimeout = "2s"
 
 [redis]
-	addr = "127.0.0.1:6379"
+	addr = "192.168.87.185:6379"
+	password = "123456"
 	idle = 10
 	active = 10
 	dialTimeout = "1s"
